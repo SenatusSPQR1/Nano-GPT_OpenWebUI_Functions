@@ -145,6 +145,11 @@ class Pipe:
             if model_name.startswith("nanogpt2."):
                 model_name = model_name[len("nanogpt2.") :]
 
+            available_models = [m["id"] for m in self.pipes()]  # Gather current model IDs
+            if model_name not in available_models:
+                return f"Error: Unrecognized model '{model_name}'. Please check the model name."
+
+
             payload = {
                 "model": model_name,
                 "system": system_message,  # Send the system message at the top level
